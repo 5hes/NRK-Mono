@@ -1,23 +1,19 @@
-#!/usr/bin/env python
-
 import fontforge
 import psMat
 import sys
 
-# 检查命令行参数
-if len(sys.argv) < 3:
-    raise Exception("Usage: script.py <fontfile> <scale_factor> [output_directory]")
+# 检查参数数量
+if len(sys.argv) < 4:
+    raise Exception("Usage: python script.py <input_font.ttf> <output_directory> <scale_factor>")
+
+input_font_path = sys.argv[1]
+output_directory = sys.argv[2]
+scale_factor = float(sys.argv[3])  # 将缩小倍数转换为浮点数
 
 # 打开字体文件
-font = fontforge.open(sys.argv[1])
+font = fontforge.open(input_font_path)
 
-# 获取缩放因子，确保它是一个有效的数字
-try:
-    scale_factor = float(sys.argv[2])
-except ValueError:
-    raise Exception("Scale factor must be a number.")
-
-# 遍历字体中的每个字形并进行缩放
+# 对每个字形进行缩放
 for g in font.glyphs():
     g.transform(psMat.scale(scale_factor, 1.0))
 
@@ -27,19 +23,18 @@ if len(fnv) != 2:
     raise Exception("Unexpected fontname")
 style = fnv[1]
 
-# 创建输出文件名
+# 构建输出文件名
 o = font.familyname + " Condensed " + style + ".ttf"
 o = o.replace(" ", "-")
 
-# 更新字体名称
+# 更新字体属性
 font.fontname = fnv[0] + "Condensed-" + style
 font.familyname = font.familyname + " Condensed"
 font.fullname = font.fullname + " Condensed"
 
-# 设置输出目录
-d = "./"
-if len(sys.argv) > 3:
-    d = sys.argv[3] + "/"
+# 确定输出目录，确保以斜杠结尾
+if not output_directory.endswith('/'):
+    output_directory += '/'
 
 # 生成新的字体文件
-font.generate(d + o)
+font.generate(output_directory + o)
