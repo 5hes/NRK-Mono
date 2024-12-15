@@ -4,12 +4,13 @@ import sys
 import os
 
 # 检查参数数量
-if len(sys.argv) < 4:
-    raise Exception("Usage: python WidthChanger.py <input_font.ttf> <output_directory> <scale_factor>")
+if len(sys.argv) < 5:
+    raise Exception("Usage: python WidthChanger.py <input_font.ttf> <output_directory> <scale_factor> <output_filename>")
 
 input_font_path = sys.argv[1]
 output_directory = sys.argv[2]
 scale_factor = float(sys.argv[3])  # 将缩小倍数转换为浮点数
+output_filename = sys.argv[4]  # 新增参数：自定义输出文件名
 
 # 确保输出目录存在
 if not os.path.exists(output_directory):
@@ -33,18 +34,18 @@ if len(fnv) != 2:
 else:
     style = fnv[1]
 
-# 构建输出文件名
-o = font.familyname + " Normal " + style + ".ttf"
-o = o.replace(" ", "-")
-
 # 更新字体属性
-font.fontname = fnv[0] + "Normal-" + style
-font.familyname = font.familyname + " Normal"
-font.fullname = font.fullname + " Normal"
+font.fontname = fnv[0] + "Condensed-" + style
+font.familyname = font.familyname + " Condensed"
+font.fullname = font.fullname + " Condensed"
+
+# 构建输出文件的完整路径
+output_file_path = os.path.join(output_directory, output_filename)
 
 # 生成新的字体文件
 try:
-    print("Generating font:", output_directory + o)
-    font.generate(output_directory + o)
+    print("Generating font:", output_file_path)
+    font.generate(output_file_path)
+    print("Font generated successfully.")
 except Exception as e:
     print("Error generating font:", e)
