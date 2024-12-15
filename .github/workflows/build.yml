@@ -24,9 +24,9 @@ jobs:
       - name: Build
         run: |
           mkdir 600width
-          python WidthChanger.py Iovevka-Medium.ttf 600width 1.5
+          python WidthChanger.py Iovevka-Medium.ttf 600width 1.5 Iovevka-600.ttf
+          tree
           cd 600width
-          mv $(ls) Iovevka-600.ttf
           cp Iovevka-600.ttf origin.ttf
           cp ../HintingChecker.sh .
           cp Iovevka-600.ttf Unhinted.ttf
