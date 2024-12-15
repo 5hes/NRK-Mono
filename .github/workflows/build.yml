@@ -45,6 +45,8 @@ jobs:
 
       - name: Check info
         run: |
+          tree
+          cd 500width
           ls -ltrah
           ls -ltra
       
