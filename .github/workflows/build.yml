@@ -22,6 +22,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir 500width
           python WidthChanger.py JetBrainsMono-Regular.otf 500width 0.8333
           cd 500width
           mv $(ls) JetBrainsMono-Regular-500Width.otf
