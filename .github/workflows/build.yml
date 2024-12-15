@@ -22,7 +22,10 @@ jobs:
 
       - name: Build
         run: |
-          python WidthChanger.py JetBrainsMono-Regular.otf 0.8333 JetBrainsMono-Regular.otf
+          python WidthChanger.py JetBrainsMono-Regular.otf 500width 0.8333
+          cd 500width
+          mv $(ls) JetBrainsMono-Regular-500Width.otf
+          cp HintingChecker.sh .
           cp JetBrainsMono-Regular-500Width.otf Unhinted.otf
           chmod +x HintingChecker.sh
           source HintingChecker.sh Unhinted.otf
@@ -30,7 +33,19 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          path: |
-            JetBrainsMono-Regular-500Width.otf
-            Unhinted*
+          name: JetBrainsMono-Regular-500Width
+          path: 500width/JetBrainsMono-Regular-500Width.otf
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: Unhinted
+          path: 500width/Unhinted*
+
+      - name: Check info
+        run: |
+          ls -ltrah
+          ls -ltra
+      
+
       
