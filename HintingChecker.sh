@@ -16,7 +16,7 @@ for font_file in "\$1"/*; do
         # 检查是否存在 hinting 信息
         if grep -q "<hints>" temp.ttx; then
             echo "$font_file: 经过 hinting"
-            ttfautohint -d Unhinted.ttf
+            ttfautohint -d Unhinted.otf
         else
             echo "$font_file: 未经过 hinting"
         fi
