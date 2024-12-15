@@ -34,7 +34,7 @@ else:
     style = fnv[1]
 
 # 构建输出文件名
-o = font.familyname + " Condensed " + style + ".ttf"
+o = font.familyname + " Normal " + style + ".ttf"
 o = o.replace(" ", "-")
 
 # 更新字体属性
