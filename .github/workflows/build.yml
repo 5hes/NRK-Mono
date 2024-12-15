@@ -19,12 +19,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install python3 fontforge python3-fontforge ttfautohint
           pip install fonttools
-          wget -O Iovevka.ttf "https://github.com/5hes/Iosevka_fork/releases/download/v0.0.1.8/Iovevka-CondensedMedium-Unhinted.ttf"
+          wget -O Iovevka-Medium.ttf "https://github.com/5hes/Iosevka_fork/releases/download/v0.0.1.8/Iovevka-CondensedMedium-Unhinted.ttf"
 
       - name: Build
         run: |
           mkdir 600width
-          python WidthChanger.py Iovevka.ttf 600width 1.5
+          python WidthChanger.py Iovevka-Medium.ttf 600width 1.5
           cd 600width
           mv $(ls) Iovevka-600.ttf
           cp Iovevka-600.ttf origin.ttf
