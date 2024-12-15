@@ -26,7 +26,7 @@ jobs:
           python WidthChanger.py JetBrainsMono-Regular.otf 500width 0.8333
           cd 500width
           mv $(ls) JetBrainsMono-Regular-500Width.otf
-          cp HintingChecker.sh .
+          cp ../HintingChecker.sh .
           cp JetBrainsMono-Regular-500Width.otf Unhinted.otf
           chmod +x HintingChecker.sh
           source HintingChecker.sh Unhinted.otf
