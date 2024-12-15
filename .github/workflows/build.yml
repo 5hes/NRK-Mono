@@ -1,0 +1,35 @@
+name: Build costom width JetBrainsMono
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: "Build costom width JetBrainsMono"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3 fontforge fontforge-python ttfautohint
+          wget "https://github.com/JetBrains/JetBrainsMono/raw/refs/heads/master/fonts/otf/JetBrainsMono-Regular.otf"
+
+      - name: Build
+        run: |
+          python WidthChanger.py JetBrainsMono-Regular.otf 0.8333 JetBrainsMono-Regular.otf
+          cp JetBrainsMono-Regular-500Width.otf Unhinted.otf
+          chmod +x HintingChecker.sh
+          source HintingChecker.sh Unhinted.otf
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            JetBrainsMono-Regular-500Width.otf
+            Unhinted*
+      
