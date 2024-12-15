@@ -18,6 +18,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install python3 fontforge python3-fontforge ttfautohint
+          pip install fonttools
           wget "https://github.com/JetBrains/JetBrainsMono/raw/refs/heads/master/fonts/otf/JetBrainsMono-Regular.otf"
 
       - name: Build
@@ -28,6 +29,7 @@ jobs:
           mv $(ls) JetBrainsMono-Regular-500Width.otf
           cp ../HintingChecker.sh .
           cp JetBrainsMono-Regular-500Width.otf Unhinted.otf
+          ttx -o temp.ttx Unhinted.otf
           chmod +x HintingChecker.sh
           source HintingChecker.sh Unhinted.otf
 
