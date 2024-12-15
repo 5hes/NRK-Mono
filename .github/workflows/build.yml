@@ -19,31 +19,32 @@ jobs:
           sudo apt-get update
           sudo apt-get install python3 fontforge python3-fontforge ttfautohint
           pip install fonttools
-          wget "https://github.com/JetBrains/JetBrainsMono/raw/refs/heads/master/fonts/otf/JetBrainsMono-Regular.otf"
+          wget -O Iovevka.ttf "https://github.com/5hes/Iosevka_fork/releases/download/v0.0.1.8/Iovevka-CondensedMedium-Unhinted.ttf"
 
       - name: Build
         run: |
-          mkdir 500width
-          python WidthChanger.py JetBrainsMono-Regular.otf 500width 0.8333
-          cd 500width
-          mv $(ls) JetBrainsMono-Regular-500Width.otf
+          mkdir 600width
+          python WidthChanger.py Iovevka.ttf 600width 1.5
+          cd 600width
+          mv $(ls) Iovevka-600.ttf
+          cp Iovevka-600.ttf origin.ttf
           cp ../HintingChecker.sh .
-          cp JetBrainsMono-Regular-500Width.otf Unhinted.otf
-          ttx -o temp.ttx Unhinted.otf
+          cp Iovevka-600.ttf Unhinted.ttf
+          ttx -o temp.ttx Unhinted.ttf
           chmod +x HintingChecker.sh
-          source HintingChecker.sh Unhinted.otf
+          source HintingChecker.sh Unhinted.ttf
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: JetBrainsMono-Regular-500Width
-          path: 500width/JetBrainsMono-Regular-500Width.otf
+          name: Iovevka-Medium-600Width
+          path: 600width/Ioseveka-600.ttf
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: Unhinted
-          path: 500width/Unhinted*
+          path: 600width/Unhinted*
 
       - name: Check info
         run: |
